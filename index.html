@@ -5,46 +5,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Music Library</title>
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 20px;
-      background: #f9f9f9;
-      text-align: center;
-    }
-    h2 {
-      font-size: 1.5rem;
-      margin-bottom: 15px;
-    }
-    audio {
-      width: 100%;
-      max-width: 400px; /* keeps it from being too wide on desktop */
-      margin: 10px 0;
-    }
-    a {
-      display: inline-block;
-      margin-top: 10px;
-      padding: 10px 20px;
-      background: #0070f3;
-      color: white;
-      text-decoration: none;
-      border-radius: 6px;
-    }
-    a:hover {
-      background: #0055aa;
-    }
+    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
+    .song { margin-bottom: 20px; }
+    audio { width: 100%; max-width: 400px; display: block; margin: 10px 0; }
   </style>
 </head>
 <body>
-  <h2>Meri Banogi Kya - Rito Riba</h2>
+  <h2>My Music Library</h2>
+  <div id="music-list"></div>
 
-  <audio controls>
-    <source src="meri-banogi-kya.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-  </audio>
+  <script>
+    // List of songs in your "songs" folder
+    const songs = [
+      "meri-banogi-kya.mp3",
+      "another-song.mp3",
+      "third-song.mp3"
+    ];
 
-  <p>
-    <a href="meri-banogi-kya.mp3" download>Download Song</a>
-  </p>
+    const container = document.getElementById("music-list");
+
+    songs.forEach(song => {
+      const songDiv = document.createElement("div");
+      songDiv.classList.add("song");
+
+      songDiv.innerHTML = `
+        <p>${song}</p>
+        <audio controls>
+          <source src="songs/${song}" type="audio/mpeg">
+        </audio>
+        <a href="songs/${song}" download>Download</a>
+      `;
+
+      container.appendChild(songDiv);
+    });
+  </script>
 </body>
 </html>
