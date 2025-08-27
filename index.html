@@ -3,16 +3,78 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Music Library</title>
+  <title>My Music Library</title>
   <style>
-    body { font-family: Arial, sans-serif; padding: 20px; background: #f9f9f9; }
-    .song { margin-bottom: 20px; }
-    audio { width: 100%; max-width: 400px; display: block; margin: 10px 0; }
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #6e8efb, #a777e3);
+      color: #fff;
+      text-align: center;
+    }
+    header {
+      padding: 30px 20px;
+      background: rgba(0, 0, 0, 0.3);
+      font-size: 2rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+    .song {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease-in-out;
+    }
+    .song:hover {
+      transform: scale(1.02);
+    }
+    .song p {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    audio {
+      width: 100%;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+    a {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 8px 15px;
+      background: #ff6b6b;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      transition: background 0.3s;
+    }
+    a:hover {
+      background: #ff4040;
+    }
+    footer {
+      margin-top: 40px;
+      padding: 15px;
+      font-size: 0.9rem;
+      background: rgba(0, 0, 0, 0.3);
+    }
   </style>
 </head>
 <body>
-  <h2>My Music Library</h2>
-  <div id="music-list"></div>
+  <header>🎵 My Music Library 🎵</header>
+  <div class="container" id="music-list"></div>
+
+  <footer>
+    Made with ❤️ by Me
+  </footer>
 
   <script>
     // List of songs in your "songs" folder
@@ -29,11 +91,11 @@
       songDiv.classList.add("song");
 
       songDiv.innerHTML = `
-        <p>${song}</p>
+        <p>${song.replace(/-/g, ' ').replace('.mp3','')}</p>
         <audio controls>
           <source src="songs/${song}" type="audio/mpeg">
         </audio>
-        <a href="songs/${song}" download>Download</a>
+        <a href="songs/${song}" download>⬇ Download</a>
       `;
 
       container.appendChild(songDiv);
