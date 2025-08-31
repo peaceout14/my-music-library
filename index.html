@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Neumorphism Music Player</title>
-  <link rel="stylesheet" href="style.css">
+  <title>Leo Music Player</title>
   <style>
     body {
       margin: 0;
@@ -13,49 +12,55 @@
       justify-content: center;
       align-items: center;
       font-family: "Poppins", sans-serif;
-      background: url("background.png") no-repeat center center fixed;
+      background: url("finalbackground.jpeg") no-repeat center center fixed;
       background-size: cover;
-
     }
 
     .player {
-  width: 350px;
-  padding: 30px;
-  border-radius: 30px;
-  
-  /* Glassmorphism effect */
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(15px);
-  -webkit-backdrop-filter: blur(15px);
-  
-  box-shadow: 20px 20px 60px rgba(0,0,0,0.3),
-              -20px -20px 60px rgba(255,255,255,0.1);
-  
-  text-align: center;
-  color: #fff; /* text becomes white for contrast */
-  }
-
-
-   .cover {
-  width: 200px;
-      height: 200px;
-      margin: 0 auto 20px;
-      border-radius: 20px;
-      background: url('album.jpg') no-repeat center/cover;
-      box-shadow: inset -6px -6px 10px #fff,
-                  inset 6px 6px 10px rgba(0,0,0,0.2);
-}
-
-    h2 {
-      margin: 10px 0 5px;
-      font-size: 20px;
-      font-weight: bold;
+      width: 400px;
+      padding: 30px;
+      border-radius: 30px;
+      background-color: rgba(0,0,0,0.8);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      text-align: center;
+      color: #ffffff;
     }
 
-    p {
+    /* Album cover with both images */
+    .cover {
+      position: relative;
+      width: 300px;
+      height: 300px;
+      margin: 0 auto 20px;
+      border-radius: 20px;
+      overflow: hidden;
+    }
+
+    .cover img.lion {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Leo text now separate */
+.leo-text {
+  display: block;
+  margin: 10px auto 10px; /* centers it above cover */
+  width: 120px;        /* adjust as needed */
+}
+
+    .song-info h2 {
+      margin: 5px 0;
+      font-size: 20px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    .song-info p {
       margin: 0;
       font-size: 14px;
-      color: #555;
+      color: #ccc;
     }
 
     .progress {
@@ -72,106 +77,275 @@
       outline: none;
     }
 
-    .progress input[type=range]::-webkit-slider-thumb {
-      -webkit-appearance: none;
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #a445b2;
-      cursor: pointer;
-      box-shadow: 0 0 5px #a445b2;
-    }
+    .progress input[type=range] {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 5px;
+  background: linear-gradient(to right, #1db954 0%, #1db954 0%, #ccc 0%, #ccc 100%);
+  outline: none;
+}
 
-    .controls {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-    }
+    
+.media-controls-container-dark {
+  display: flex;
+  justify-content: center; /* Centers the buttons horizontally */
+  align-items: center;
+  gap: 20px;
+  padding: 10px 0; /* Adjusts the padding to be a small vertical buffer */
+  background: transparent; /* Removes the background color */
+  backdrop-filter: none; /* Removes the blur effect */
+  border-radius: 0;
+  border: none;
+  box-shadow: none; /* Removes the box shadow */
+}
 
-    .btn {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 22px;
-      background: #e0e0e0;
-      cursor: pointer;
-      box-shadow: -6px -6px 10px #fff,
-                  6px 6px 10px rgba(0,0,0,0.2);
-      transition: transform 0.2s;
-    }
+.control-button-dark {
+  width: 60px;
+  height: 60px;
+  border: none;
+  border-radius: 50%;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 
-    .btn:active {
-      transform: scale(0.9);
-      box-shadow: inset -6px -6px 10px #fff,
-                  inset 6px 6px 10px rgba(0,0,0,0.2);
-    }
+.control-button-dark:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.control-button-dark:active {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(0.95);
+}
+
+.control-button-dark svg {
+  fill: currentColor;
+  width: 24px;
+  height: 24px;
+}
+
+.play-pause-btn-dark .icon-play { transform: scale(1); }
+.play-pause-btn-dark .icon-pause { transform: scale(0); }
+.play-pause-btn-dark.playing .icon-play { transform: scale(0); }
+.play-pause-btn-dark.playing .icon-pause { transform: scale(1); }
+
+.search-box {
+  margin-bottom: 10px;
+  text-align: center;
+  position: relative;
+}
+
+.search-box input {
+  width: 250px;
+  padding: 8px;
+  border-radius: 80px;
+  border: 4px solid #232020f3;
+  outline: none;
+}
+
+.suggestions {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 200px;
+  background: #000000;
+  border: 0px solid #ddd;
+  border-radius: 0 0 7px 7px;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.suggestion-item {
+  padding: 6px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background: #ffffff;
+  color: rgb(0, 0, 0);
+}
+
+
   </style>
 </head>
 <body>
   <div class="player">
-    <div class="cover"></div>
-    <h2>Purple Haze</h2>
-    <p>Jimi Hendrix – Woodstock</p>
+
+    <!-- Leo text above the cover -->
+<img src="leo.png" alt="leo" class="leo-text">
+
+<!-- Album cover -->
+<div class="cover">
+  <img src="music-cover.png" alt="Lion Cover" class="lion">
+</div>
+
+
+    <!-- Song Info -->
+    <div class="song-info">
+      <h2> LEO </h2>
+      <p id="song-artist">Jimi Hendrix – Woodstock</p>
+    </div>
 
     <!-- Progress Bar -->
     <div class="progress">
       <input type="range" id="progress" value="0">
     </div>
 
-    <!-- Controls -->
-    <div class="controls">
-      <div class="btn" id="prev">⏮</div>
-      <div class="btn" id="play">▶️</div>
-      <div class="btn" id="next">⏭</div>
-    </div>
+    <div class="search-box">
+  <input type="text" id="song-search" placeholder="Search songs..." oninput="showSuggestions(this.value)">
+  <div id="suggestions" class="suggestions"></div>
+</div>
 
-    <!-- Audio File -->
-    <audio id="audio" src="meri-banogi-kya.mp3"></audio>
+
+    <!-- Controls -->
+    <div class="media-controls-container-dark">
+  <button class="control-button-dark prev-btn-dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+    </svg>
+  </button>
+  <button class="control-button-dark play-pause-btn-dark" id="play-pause-button" aria-label="Play/Pause">
+  <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+    <path d="M8 5v14l11-7z"/>
+  </svg>
+  <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display: none;">
+    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+  </svg>
+  </button>
+  <button class="control-button-dark next-btn-dark">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+      <path d="M8.59 16.59L13.17 12l-4.58-4.59L10 6l6 6-6 6z"/>
+    </svg>
+  </button>
+</div>
+
+
+    <!-- Audio -->
+    <audio id="audio" src="Meri_Banogi_kya-Rito_Riba.mp3" ></audio>
   </div>
 
   <script>
+
+    // Songs list (replace with your actual song file names)
+const songs = [
+  "Meri_Banogi_kya-Rito_Riba.mp3",
+  "Tum Hi Ho.mp3",
+  "Shape of You.mp3",
+  "Believer.mp3",
+  "Song5.mp3"
+];
+
+function showSuggestions(query) {
+  const suggestionsBox = document.getElementById("suggestions");
+  suggestionsBox.innerHTML = "";
+
+  if (!query) return;
+
+  const matches = songs.filter(song =>
+    song.toLowerCase().includes(query.toLowerCase())
+  );
+
+  matches.forEach(song => {
+    const div = document.createElement("div");
+    div.classList.add("suggestion-item");
+    div.textContent = song;
+    div.onclick = () => selectSong(song);
+    suggestionsBox.appendChild(div);
+  });
+}
+
+function selectSong(song) {
+  audio.src = song;
+  audio.play();
+  updateSongInfo(song);
+  document.getElementById("song-search").value = song;
+  document.getElementById("suggestions").innerHTML = "";
+}
+
+// Modify updateSongInfo to accept song name
+function updateSongInfo(songName) {
+  document.getElementById("song-info").textContent = songName || audio.src;
+}
+
     const audio = document.getElementById("audio");
-    const playBtn = document.getElementById("play");
-    const progress = document.getElementById("progress");
+const playPauseBtn = document.getElementById("play-pause-button");
+const progressBar = document.getElementById("progress");
+const songArtist = document.getElementById("song-artist"); // <-- this was missing
 
-    let isPlaying = false;
+       function updateSongInfo() {
+  const fullPath = audio.src;
+  const filename = fullPath.split('/').pop(); 
+  const decodedName = decodeURIComponent(filename); 
+  const nameWithoutExt = decodedName.split('.').slice(0, -1).join('.');
 
-    // Play / Pause toggle
-    playBtn.addEventListener("click", () => {
-      if (isPlaying) {
-        audio.pause();
-        playBtn.textContent = "▶️";
-      } else {
-        audio.play();
-        playBtn.textContent = "⏸";
-      }
-      isPlaying = !isPlaying;
-    });
+  // show full name inside <p>
+  songArtist.textContent = nameWithoutExt; 
+}
 
-    // Update progress bar
-    audio.addEventListener("timeupdate", () => {
-      progress.value = (audio.currentTime / audio.duration) * 100 || 0;
-    });
+// Event listener for the play/pause button
+playPauseBtn.addEventListener("click", () => {
+  if (audio.paused) {
+    audio.play();
+  } else {
+    audio.pause();
+  }
+});
 
-    // Seek in song
-    progress.addEventListener("input", () => {
-      audio.currentTime = (progress.value / 100) * audio.duration;
-    });
+// Update the play/pause button icon when the audio state changes
+audio.addEventListener("play", () => {
+  playPauseBtn.classList.add("playing");
+});
 
-    // (Optional) Next/Prev – you can add playlist logic later
-    document.getElementById("prev").addEventListener("click", () => {
-      audio.currentTime = 0;
-    });
-    document.getElementById("next").addEventListener("click", () => {
-      audio.currentTime = audio.duration;
-    });
+audio.addEventListener("pause", () => {
+  playPauseBtn.classList.remove("playing");
+});
+
+// Progress bar update
+audio.addEventListener("timeupdate", () => {
+  progressBar.value = (audio.currentTime / audio.duration) * 100 || 0;
+});
+
+function updateProgressBar() {
+  const value = (audio.currentTime / audio.duration) * 100 || 0;
+  progressBar.value = value;
+
+  progressBar.style.background = `linear-gradient(to right, #1db954 ${value}%, #ccc ${value}%)`;
+}
+
+// Progress bar update while playing
+audio.addEventListener("timeupdate", updateProgressBar);
+
+// Seek functionality
+progressBar.addEventListener("input", () => {
+  audio.currentTime = (progressBar.value / 100) * audio.duration;
+  updateProgressBar();
+});
+
+
+// Seek functionality for the progress bar
+progressBar.addEventListener("input", () => {
+  audio.currentTime = (progressBar.value / 100) * audio.duration;
+});
+
+// Add functionality for previous and next buttons (currently they just reset)
+const prevBtn = document.querySelector(".prev-btn-dark");
+const nextBtn = document.querySelector(".next-btn-dark");
+
+prevBtn.addEventListener("click", () => {
+  audio.currentTime = 0; // Or implement logic to change to the previous song
+});
+
+nextBtn.addEventListener("click", () => {
+  audio.currentTime = audio.duration; // Or implement logic to change to the next song
+});
+updateSongInfo();
   </script>
 </body>
 </html>
-
-
-
-
