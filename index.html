@@ -232,135 +232,104 @@
   </div>
 
   <script>
+  // Songs list (replace with your actual song file names)
+  const songs = [
+    "Meri_Banogi_kya-Rito_Riba.mp3",
+    "Tum Hi Ho.mp3",
+    "Shape of You.mp3",
+    "Believer.mp3",
+    "Song5.mp3"
+  ];
 
-    // Songs list (replace with your actual song file names)
-const songs = [
-  "Meri_Banogi_kya-Rito_Riba.mp3",
-  "Labrinth-Mount-Everest.m4a.mp3",
-  "DARK-NIGHT-FUNK.m4a.mp3",
-  "MONTAGEM-ALUCINANTE-Rushex-Dj-Orbital.m4a.mp3",
-  "No-Signal.m4a.mp3",
-  "SHOORVEER-3-A-Tribute-to-छत-रपत-श-व-ज-मह-र-ज.m4a.mp3",
-  "SHOORVEER-Tribute-to-छत-रपत-स-भ-ज-मह-र-ज-CHHAAVA-I-Rapperiya.m4a.mp3",
-  "Bhaag-Milkha-Bhaag-Rock-Version.m4a.mp3",
-  "Rang-Jo-Lagyo-Ramaiya-Vastavaiya.m4a.mp3",
-  "52-Bars_karan_aujilah.m4a.mp3",
-  "Red-Sex-Re-Strung.m4a.mp3",
-  "Sahiba_Aditya.m4a.mp3",
-  "Zaalima.m4a.mp3",
-  "Raabta_Arijit_singh.m4a.mp3",
-  "Kabira_pritam.m4a.mp3",
-  "Othaiyadi-Pathayila-.m4a.mp3",
-  "Parro_Aditya_Rikhari.m4a.mp3",
-  "Wishes-ft-Talwiinder.m4a.mp3",
-];
+  let currentSongIndex = 0;
 
-function showSuggestions(query) {
-  const suggestionsBox = document.getElementById("suggestions");
-  suggestionsBox.innerHTML = "";
+  const audio = document.getElementById("audio");
+  const playPauseBtn = document.getElementById("play-pause-button");
+  const progressBar = document.getElementById("progress");
+  const songArtist = document.getElementById("song-artist"); 
+  const prevBtn = document.querySelector(".prev-btn-dark");
+  const nextBtn = document.querySelector(".next-btn-dark");
 
-  if (!query) return;
-
-  const matches = songs.filter(song =>
-    song.toLowerCase().includes(query.toLowerCase())
-  );
-
-  matches.forEach(song => {
-    const div = document.createElement("div");
-    div.classList.add("suggestion-item");
-    div.textContent = song;
-    div.onclick = () => selectSong(song);
-    suggestionsBox.appendChild(div);
-  });
-}
-
-function selectSong(song) {
-  audio.src = song;
-  audio.play();
-  updateSongInfo(song);
-  document.getElementById("song-search").value = song;
-  document.getElementById("suggestions").innerHTML = "";
-}
-
-// Modify updateSongInfo to accept song name
-function updateSongInfo(songName) {
-  document.getElementById("song-info").textContent = songName || audio.src;
-}
-
-    const audio = document.getElementById("audio");
-const playPauseBtn = document.getElementById("play-pause-button");
-const progressBar = document.getElementById("progress");
-const songArtist = document.getElementById("song-artist"); // <-- this was missing
-
-       function updateSongInfo() {
-  const fullPath = audio.src;
-  const filename = fullPath.split('/').pop(); 
-  const decodedName = decodeURIComponent(filename); 
-  const nameWithoutExt = decodedName.split('.').slice(0, -1).join('.');
-
-  // show full name inside <p>
-  songArtist.textContent = nameWithoutExt; 
-}
-
-// Event listener for the play/pause button
-playPauseBtn.addEventListener("click", () => {
-  if (audio.paused) {
+  // Load a song
+  function loadSong(index) {
+    currentSongIndex = (index + songs.length) % songs.length; // wrap around
+    audio.src = songs[currentSongIndex];
+    updateSongInfo();
     audio.play();
-  } else {
-    audio.pause();
   }
-});
 
-// Update the play/pause button icon when the audio state changes
-audio.addEventListener("play", () => {
-  playPauseBtn.classList.add("playing");
-});
+  // Song info updater
+  function updateSongInfo() {
+    const fullPath = audio.src;
+    const filename = fullPath.split("/").pop();
+    const decodedName = decodeURIComponent(filename);
+    const nameWithoutExt = decodedName.split(".").slice(0, -1).join(".");
+    songArtist.textContent = nameWithoutExt;
+  }
 
-audio.addEventListener("pause", () => {
-  playPauseBtn.classList.remove("playing");
-});
+  // Suggestions
+  function showSuggestions(query) {
+    const suggestionsBox = document.getElementById("suggestions");
+    suggestionsBox.innerHTML = "";
+    if (!query) return;
 
-// Progress bar update
-audio.addEventListener("timeupdate", () => {
-  progressBar.value = (audio.currentTime / audio.duration) * 100 || 0;
-});
+    const matches = songs.filter(song =>
+      song.toLowerCase().includes(query.toLowerCase())
+    );
 
-function updateProgressBar() {
-  const value = (audio.currentTime / audio.duration) * 100 || 0;
-  progressBar.value = value;
+    matches.forEach(song => {
+      const div = document.createElement("div");
+      div.classList.add("suggestion-item");
+      div.textContent = song;
+      div.onclick = () => selectSong(song);
+      suggestionsBox.appendChild(div);
+    });
+  }
 
-  progressBar.style.background = `linear-gradient(to right, #1db954 ${value}%, #ccc ${value}%)`;
-}
+  function selectSong(song) {
+    currentSongIndex = songs.indexOf(song);
+    loadSong(currentSongIndex);
+    document.getElementById("song-search").value = song;
+    document.getElementById("suggestions").innerHTML = "";
+  }
 
-// Progress bar update while playing
-audio.addEventListener("timeupdate", updateProgressBar);
+  // Play / Pause button
+  playPauseBtn.addEventListener("click", () => {
+    if (audio.paused) {
+      audio.play();
+    } else {
+      audio.pause();
+    }
+  });
 
-// Seek functionality
-progressBar.addEventListener("input", () => {
-  audio.currentTime = (progressBar.value / 100) * audio.duration;
-  updateProgressBar();
-});
+  audio.addEventListener("play", () => playPauseBtn.classList.add("playing"));
+  audio.addEventListener("pause", () => playPauseBtn.classList.remove("playing"));
 
+  // Progress bar update
+  function updateProgressBar() {
+    const value = (audio.currentTime / audio.duration) * 100 || 0;
+    progressBar.value = value;
+    progressBar.style.background = `linear-gradient(to right, #1db954 ${value}%, #ccc ${value}%)`;
+  }
 
-// Seek functionality for the progress bar
-progressBar.addEventListener("input", () => {
-  audio.currentTime = (progressBar.value / 100) * audio.duration;
-});
+  audio.addEventListener("timeupdate", updateProgressBar);
 
-// Add functionality for previous and next buttons (currently they just reset)
-const prevBtn = document.querySelector(".prev-btn-dark");
-const nextBtn = document.querySelector(".next-btn-dark");
+  progressBar.addEventListener("input", () => {
+    audio.currentTime = (progressBar.value / 100) * audio.duration;
+  });
 
-prevBtn.addEventListener("click", () => {
-  audio.currentTime = 0; // Or implement logic to change to the previous song
-});
+  // Prev / Next buttons
+  prevBtn.addEventListener("click", () => loadSong(currentSongIndex - 1));
+  nextBtn.addEventListener("click", () => loadSong(currentSongIndex + 1));
 
-nextBtn.addEventListener("click", () => {
-  audio.currentTime = audio.duration; // Or implement logic to change to the next song
-});
-updateSongInfo();
+  // Autoplay next song when one ends
+  audio.addEventListener("ended", () => loadSong(currentSongIndex + 1));
+
+  // Start with first song
+  loadSong(currentSongIndex);
   </script>
 </body>
 </html>
+
 
 
