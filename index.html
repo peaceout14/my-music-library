@@ -172,6 +172,30 @@
   color: rgb(0, 0, 0);
 }
 
+    .queue {
+      margin-top: 20px;
+      padding: 10px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      max-height: 150px;
+      overflow-y: auto;
+      color: #fff;
+    }
+
+    .queue-item {
+      padding: 5px;
+      cursor: pointer;
+    }
+
+    .queue-item:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .queue-item .remove-btn {
+      color: red;
+      margin-left: 10px;
+      cursor: pointer;
+    }
 
   </style>
 </head>
@@ -234,6 +258,12 @@
 
     <!-- Audio -->
     <audio id="audio" src="Meri_Banogi_kya-Rito_Riba.mp3" ></audio>
+
+     <!-- Queue Display -->
+    <div class="queue" id="queue-container">
+      <h3>Queue</h3>
+      <div id="queue-list"></div>
+    </div>
   </div>
 
   <script>
@@ -269,6 +299,7 @@
   const prevBtn = document.querySelector(".prev-btn-dark");
   const nextBtn = document.querySelector(".next-btn-dark");
   const loopBtn = document.getElementById("loop-btn");
+  const queueContainer = document.getElementById("queue-list");
 
   // Load a song
   function loadSong(index) {
@@ -340,7 +371,50 @@
 
   // Prev / Next buttons
   prevBtn.addEventListener("click", () => loadSong(currentSongIndex - 1));
-  nextBtn.addEventListener("click", () => loadSong(currentSongIndex + 1));
+ nextBtn.addEventListener("click", () => {
+      if (queue.length > 0) {
+        loadSong(songs.indexOf(queue.shift()));  // Get song from queue and remove it
+        updateQueueDisplay();
+      } else {
+        loadSong(currentSongIndex + 1);  // Play the next song normally
+      }
+    });
+
+    // Add song to queue
+    function addToQueue(song) {
+      if (!queue.includes(song)) {
+        queue.push(song);
+        updateQueueDisplay();
+      }
+    }
+
+    // Update the queue display
+    function updateQueueDisplay() {
+      queueContainer.innerHTML = "";
+      queue.forEach((song, index) => {
+        const queueItem = document.createElement("div");
+        queueItem.classList.add("queue-item");
+        queueItem.innerHTML = `${song} <span class="remove-btn" onclick="removeFromQueue(${index})">Remove</span>`;
+        queueContainer.appendChild(queueItem);
+      });
+    }
+
+    // Remove song from queue
+    function removeFromQueue(index) {
+      queue.splice(index, 1);
+      updateQueueDisplay();
+    }
+
+    // Add song to queue when song ends
+    audio.addEventListener("ended", () => {
+      if (queue.length > 0) {
+        loadSong(songs.indexOf(queue.shift()));  // Play next song in queue
+        updateQueueDisplay();
+      } else {
+        loadSong(currentSongIndex + 1);  // Normal behavior if queue is empty
+      }
+    });
+
   
     // Loop functionality
     loopBtn.addEventListener("click", () => {
@@ -372,9 +446,4 @@
   </script>
 </body>
 </html>
-
-
-
-
-
 
