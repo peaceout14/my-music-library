@@ -172,7 +172,7 @@
   color: rgb(0, 0, 0);
 }
 
-    .queue {
+     .queue {
       margin-top: 20px;
       padding: 10px;
       background: rgba(255, 255, 255, 0.1);
@@ -196,20 +196,18 @@
       margin-left: 10px;
       cursor: pointer;
     }
-
   </style>
 </head>
 <body>
-  <div class="player">
+ <div class="player">
 
     <!-- Leo text above the cover -->
-<img src="leo.png" alt="leo" class="leo-text">
+    <img src="leo.png" alt="leo" class="leo-text">
 
-<!-- Album cover -->
-<div class="cover">
-  <img src="music-cover.png" alt="Lion Cover" class="lion">
-</div>
-
+    <!-- Album cover -->
+    <div class="cover">
+      <img src="music-cover.png" alt="Lion Cover" class="lion">
+    </div>
 
     <!-- Song Info -->
     <div class="song-info">
@@ -223,43 +221,41 @@
     </div>
 
     <div class="search-box">
-  <input type="text" id="song-search" placeholder="Search songs..." oninput="showSuggestions(this.value)">
-  <div id="suggestions" class="suggestions"></div>
-</div>
-
+      <input type="text" id="song-search" placeholder="Search songs..." oninput="showSuggestions(this.value)">
+      <div id="suggestions" class="suggestions"></div>
+    </div>
 
     <!-- Controls -->
     <div class="media-controls-container-dark">
-  <button class="control-button-dark prev-btn-dark">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-    </svg>
-  </button>
+      <button class="control-button-dark prev-btn-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </button>
+      <button class="control-button-dark play-pause-btn-dark" id="play-pause-button" aria-label="Play/Pause">
+        <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display: none;">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+      </button>
+      <button class="control-button-dark next-btn-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12l-4.58-4.59L10 6l6 6-6 6z"/>
+        </svg>
+      </button>
       <button class="control-button-dark loop-btn-dark" id="loop-btn">
-  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.82 10.99A4.5 4.5 0 0118 18.5m-15.111-2.99a4.5 4.5 0 01-1.385-5.516l1.242-.96a1 1 0 011.666 1.042 6.5 6.5 0 0010.59-1.996l.732-2.147a1 1 0 011.666 1.042l-1.242.96a4.5 4.5 0 01-1.385 5.516l-.821.636a1 1 0 01-1.666-1.042z"></path>
-  </svg>
-</button>
-  <button class="control-button-dark play-pause-btn-dark" id="play-pause-button" aria-label="Play/Pause">
-  <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <path d="M8 5v14l11-7z"/>
-  </svg>
-  <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display: none;">
-    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-  </svg>
-  </button>
-  <button class="control-button-dark next-btn-dark">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M8.59 16.59L13.17 12l-4.58-4.59L10 6l6 6-6 6z"/>
-    </svg>
-  </button>
-</div>
-
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M17.3 7.3c-1.8-1.8-4.6-1.8-6.4 0l-1.7 1.7c-1.5-1.1-3.6-1-5 0-1.6 1.1-2 3.1-1 4.8 1.1 1.7 3.2 2.1 4.8 1 1.1-1.1 1.1-2.8 0-4l1.7-1.7c1.8 1.8 4.6 1.8 6.4 0 1.8-1.8 1.8-4.6 0-6.4z"/>
+        </svg>
+      </button>
+    </div>
 
     <!-- Audio -->
-    <audio id="audio" src="Meri_Banogi_kya-Rito_Riba.mp3" ></audio>
+    <audio id="audio" src="Meri_Banogi_kya-Rito_Riba.mp3"></audio>
 
-     <!-- Queue Display -->
+    <!-- Queue Display -->
     <div class="queue" id="queue-container">
       <h3>Queue</h3>
       <div id="queue-list"></div>
@@ -267,111 +263,84 @@
   </div>
 
   <script>
-  // Songs list (replace with your actual song file names)
-  const songs = [
-    "Meri_Banogi_kya-Rito_Riba.mp3",
-"DARK-NIGHT-FUNK.m4a.webm",
-"MONTAGEM-ALUCINANTE-Rushex-Dj-Orbital.m4a.mp3",
-"No-Signal.m4a.webm",
-"SHOORVEER-3-A-Tribute-to-छत-रपत-श-व-ज-मह-र-ज.m4a.mp3",
-"SHOORVEER-Tribute-to-छत-रपत-स-भ-ज-मह-र-ज-CHHAAVA-I-Rapperiya.m4a.mp3",
-"Bhaag-Milkha-Bhaag-Rock-Version.m4a.mp3",
-"Rang-Jo-Lagyo-Ramaiya-Vastavaiya.m4a.mp3",
-"52-Bars_karan_aujilah.m4a.mp3",
-"Red-Sex-Re-Strung.m4a.mp3",
-"Sahiba_Aditya.m4a.mp3",
-"Zaalima.m4a.mp3",
-"Raabta_Arijit_singh.m4a.mp3",
-"Kabira_pritam.m4a.mp3",
-"Othaiyadi-Pathayila-.m4a.mp3",
-"Parro_Aditya_Rikhari.m4a.mp3",
-"Wishes-ft-Talwiinder.m4a.mp3",
-"Labrinth-Mount-Everest.m4a.mp3",
-  ];
+    // Songs list
+    const songs = [
+      "Meri_Banogi_kya-Rito_Riba.mp3",
+      "DARK-NIGHT-FUNK.m4a.webm",
+      "MONTAGEM-ALUCINANTE-Rushex-Dj-Orbital.m4a.mp3",
+      "No-Signal.m4a.webm",
+      "SHOORVEER-3-A-Tribute-to-छत-रपत-श-व-ज-मह-र-ज.m4a.mp3",
+      "SHOORVEER-Tribute-to-छत-रपत-स-भ-ज-मह-र-ज-CHHAAVA-I-Rapperiya.m4a.mp3",
+      "Bhaag-Milkha-Bhaag-Rock-Version.m4a.mp3",
+      "Rang-Jo-Lagyo-Ramaiya-Vastavaiya.m4a.mp3",
+      "52-Bars_karan_aujilah.m4a.mp3",
+      "Red-Sex-Re-Strung.m4a.mp3",
+      "Sahiba_Aditya.m4a.mp3",
+      "Zaalima.m4a.mp3",
+      "Raabta_Arijit_singh.m4a.mp3",
+      "Kabira_pritam.m4a.mp3",
+      "Othaiyadi-Pathayila-.m4a.mp3",
+      "Parro_Aditya_Rikhari.m4a.mp3",
+      "Wishes-ft-Talwiinder.m4a.mp3",
+      "Labrinth-Mount-Everest.m4a.mp3"
+    ];
 
-  let currentSongIndex = 0;
+    let currentSongIndex = 0;
     let isLooping = false;
+    let queue = [];  // Queue array
 
-  const audio = document.getElementById("audio");
-  const playPauseBtn = document.getElementById("play-pause-button");
-  const progressBar = document.getElementById("progress");
-  const songArtist = document.getElementById("song-artist"); 
-  const prevBtn = document.querySelector(".prev-btn-dark");
-  const nextBtn = document.querySelector(".next-btn-dark");
-  const loopBtn = document.getElementById("loop-btn");
-  const queueContainer = document.getElementById("queue-list");
+    const audio = document.getElementById("audio");
+    const playPauseBtn = document.getElementById("play-pause-button");
+    const progressBar = document.getElementById("progress");
+    const songArtist = document.getElementById("song-artist");
+    const prevBtn = document.querySelector(".prev-btn-dark");
+    const nextBtn = document.querySelector(".next-btn-dark");
+    const loopBtn = document.getElementById("loop-btn");
+    const queueContainer = document.getElementById("queue-list");
 
-  // Load a song
-  function loadSong(index) {
-    currentSongIndex = (index + songs.length) % songs.length; // wrap around
-    audio.src = songs[currentSongIndex];
-    updateSongInfo();
-    audio.play();
-  }
-
-  // Song info updater
-  function updateSongInfo() {
-    const fullPath = audio.src;
-    const filename = fullPath.split("/").pop();
-    const decodedName = decodeURIComponent(filename);
-    const nameWithoutExt = decodedName.split(".").slice(0, -1).join(".");
-    songArtist.textContent = nameWithoutExt;
-  }
-
-  // Suggestions
-  function showSuggestions(query) {
-    const suggestionsBox = document.getElementById("suggestions");
-    suggestionsBox.innerHTML = "";
-    if (!query) return;
-
-    const matches = songs.filter(song =>
-      song.toLowerCase().includes(query.toLowerCase())
-    );
-
-    matches.forEach(song => {
-      const div = document.createElement("div");
-      div.classList.add("suggestion-item");
-      div.textContent = song;
-      div.onclick = () => selectSong(song);
-      suggestionsBox.appendChild(div);
-    });
-  }
-
-  function selectSong(song) {
-    currentSongIndex = songs.indexOf(song);
-    loadSong(currentSongIndex);
-    document.getElementById("song-search").value = song;
-    document.getElementById("suggestions").innerHTML = "";
-  }
-
-  // Play / Pause button
-  playPauseBtn.addEventListener("click", () => {
-    if (audio.paused) {
+    // Load a song
+    function loadSong(index) {
+      currentSongIndex = (index + songs.length) % songs.length; // wrap around
+      audio.src = songs[currentSongIndex];
+      updateSongInfo();
       audio.play();
-    } else {
-      audio.pause();
     }
-  });
 
-  audio.addEventListener("play", () => playPauseBtn.classList.add("playing"));
-  audio.addEventListener("pause", () => playPauseBtn.classList.remove("playing"));
+    // Song info updater
+    function updateSongInfo() {
+      const fullPath = audio.src;
+      const filename = fullPath.split("/").pop();
+      const decodedName = decodeURIComponent(filename);
+      const nameWithoutExt = decodedName.split(".").slice(0, -1).join(".");
+      songArtist.textContent = nameWithoutExt;
+    }
 
-  // Progress bar update
-  function updateProgressBar() {
-    const value = (audio.currentTime / audio.duration) * 100 || 0;
-    progressBar.value = value;
-    progressBar.style.background = `linear-gradient(to right, #1db954 ${value}%, #ccc ${value}%)`;
-  }
+    // Play / Pause button
+    playPauseBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
 
-  audio.addEventListener("timeupdate", updateProgressBar);
+    audio.addEventListener("play", () => playPauseBtn.classList.add("playing"));
+    audio.addEventListener("pause", () => playPauseBtn.classList.remove("playing"));
 
-  progressBar.addEventListener("input", () => {
-    audio.currentTime = (progressBar.value / 100) * audio.duration;
-  });
+    // Progress bar update
+    function updateProgressBar() {
+      const value = (audio.currentTime / audio.duration) * 100 || 0;
+      progressBar.value = value;
+      progressBar.style.background = `linear-gradient(to right, #1db954 ${value}%, #ccc ${value}%)`;
+    }
 
-  // Prev / Next buttons
-  prevBtn.addEventListener("click", () => loadSong(currentSongIndex - 1));
- nextBtn.addEventListener("click", () => {
+    audio.addEventListener("timeupdate", updateProgressBar);
+    progressBar.addEventListener("input", () => {
+      audio.currentTime = (progressBar.value / 100) * audio.duration;
+    });
+
+    // Next button functionality
+    nextBtn.addEventListener("click", () => {
       if (queue.length > 0) {
         loadSong(songs.indexOf(queue.shift()));  // Get song from queue and remove it
         updateQueueDisplay();
@@ -379,6 +348,22 @@
         loadSong(currentSongIndex + 1);  // Play the next song normally
       }
     });
+
+    // Queue Update Display
+    function updateQueueDisplay() {
+      queueContainer.innerHTML = "";  // Clear the queue container
+
+      if (queue.length > 0) {
+        queue.forEach((song, index) => {
+          const div = document.createElement("div");
+          div.classList.add("queue-item");
+          div.innerHTML = `${song} <span class="remove-btn" onclick="removeFromQueue(${index})">Remove</span>`;
+          queueContainer.appendChild(div);
+        });
+      } else {
+        queueContainer.innerHTML = "<p>No songs in queue</p>";
+      }
+    }
 
     // Add song to queue
     function addToQueue(song) {
@@ -388,42 +373,19 @@
       }
     }
 
-    // Update the queue display
-    function updateQueueDisplay() {
-      queueContainer.innerHTML = "";
-      queue.forEach((song, index) => {
-        const queueItem = document.createElement("div");
-        queueItem.classList.add("queue-item");
-        queueItem.innerHTML = `${song} <span class="remove-btn" onclick="removeFromQueue(${index})">Remove</span>`;
-        queueContainer.appendChild(queueItem);
-      });
-    }
-
     // Remove song from queue
     function removeFromQueue(index) {
       queue.splice(index, 1);
       updateQueueDisplay();
     }
 
-    // Add song to queue when song ends
-    audio.addEventListener("ended", () => {
-      if (queue.length > 0) {
-        loadSong(songs.indexOf(queue.shift()));  // Play next song in queue
-        updateQueueDisplay();
-      } else {
-        loadSong(currentSongIndex + 1);  // Normal behavior if queue is empty
-      }
-    });
-
-  
-    // Loop functionality
+    // Loop button functionality
     loopBtn.addEventListener("click", () => {
       isLooping = !isLooping;
-      loopBtn.classList.toggle("active", isLooping); // visual toggle
-
+      loopBtn.classList.toggle("active", isLooping);
       if (isLooping) {
         audio.addEventListener("ended", () => {
-          audio.currentTime = 0; // Start song over
+          audio.currentTime = 0;  // Restart song if looping
           audio.play();
         });
       } else {
@@ -431,19 +393,13 @@
           audio.currentTime = 0;
           audio.play();
         });
-        audio.addEventListener("ended", () => loadSong(currentSongIndex + 1));
       }
     });
 
-    // Autoplay next song when one ends (loop OFF)
-    audio.addEventListener("ended", () => {
-      if (!isLooping) {
-        loadSong(currentSongIndex + 1);
-      }
-    });
-  // Start with first song
-  loadSong(currentSongIndex);
+    // Load the first song on start
+    loadSong(currentSongIndex);
   </script>
 </body>
 </html>
+
 
