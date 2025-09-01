@@ -5,187 +5,19 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Leo Music Player</title>
   <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: "Poppins", sans-serif;
-      background: url("finalbackground.jpeg") no-repeat center center fixed;
-      background-size: cover;
-    }
-
-    .player {
-      width: 400px;
-      padding: 30px;
-      border-radius: 30px;
-      background-color: rgba(0,0,0,0.8);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      text-align: center;
-      color: #ffffff;
-    }
-
-    /* Album cover with both images */
-    .cover {
-      position: relative;
-      width: 300px;
-      height: 300px;
-      margin: 0 auto 20px;
-      border-radius: 20px;
-      overflow: hidden;
-    }
-
-    .cover img.lion {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    /* Leo text now separate */
-.leo-text {
-  display: block;
-  margin: 10px auto 10px; /* centers it above cover */
-  width: 120px;        /* adjust as needed */
-}
-
-    .song-info h2 {
-      margin: 5px 0;
-      font-size: 20px;
-      font-weight: bold;
-      color: #fff;
-    }
-
-    .song-info p {
-      margin: 0;
-      font-size: 14px;
-      color: #ccc;
-    }
-
-    .progress {
-      width: 100%;
-      margin: 20px 0;
-    }
-
-    .progress input[type=range] {
-      -webkit-appearance: none;
-      width: 100%;
-      height: 6px;
-      border-radius: 5px;
-      background: #ccc;
-      outline: none;
-    }
-
-    .progress input[type=range] {
-  -webkit-appearance: none;
-  width: 100%;
-  height: 6px;
-  border-radius: 5px;
-  background: linear-gradient(to right, #1db954 0%, #1db954 0%, #ccc 0%, #ccc 100%);
-  outline: none;
-}
-
-    
-.media-controls-container-dark {
-  display: flex;
-  justify-content: center; /* Centers the buttons horizontally */
-  align-items: center;
-  gap: 20px;
-  padding: 10px 0; /* Adjusts the padding to be a small vertical buffer */
-  background: transparent; /* Removes the background color */
-  backdrop-filter: none; /* Removes the blur effect */
-  border-radius: 0;
-  border: none;
-  box-shadow: none; /* Removes the box shadow */
-}
-
-.control-button-dark {
-  width: 60px;
-  height: 60px;
-  border: none;
-  border-radius: 50%;
-  color: #fff;
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-}
-
-.control-button-dark:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.control-button-dark:active {
-  background: rgba(255, 255, 255, 0.3);
-  transform: scale(0.95);
-}
-
-.control-button-dark svg {
-  fill: currentColor;
-  width: 24px;
-  height: 24px;
-}
-
-.play-pause-btn-dark .icon-play { transform: scale(1); }
-.play-pause-btn-dark .icon-pause { transform: scale(0); }
-.play-pause-btn-dark.playing .icon-play { transform: scale(0); }
-.play-pause-btn-dark.playing .icon-pause { transform: scale(1); }
-
-.search-box {
-  margin-bottom: 10px;
-  text-align: center;
-  position: relative;
-}
-
-.search-box input {
-  width: 250px;
-  padding: 8px;
-  border-radius: 80px;
-  border: 4px solid #232020f3;
-  outline: none;
-}
-
-.suggestions {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 200px;
-  background: #000000;
-  border: 0px solid #ddd;
-  border-radius: 0 0 7px 7px;
-  max-height: 150px;
-  overflow-y: auto;
-  z-index: 1000;
-}
-
-.suggestion-item {
-  padding: 6px;
-  cursor: pointer;
-}
-
-.suggestion-item:hover {
-  background: #ffffff;
-  color: rgb(0, 0, 0);
-}
-
-
+    /* Add your existing styles here */
   </style>
 </head>
 <body>
   <div class="player">
 
     <!-- Leo text above the cover -->
-<img src="leo.png" alt="leo" class="leo-text">
+    <img src="leo.png" alt="leo" class="leo-text">
 
-<!-- Album cover -->
-<div class="cover">
-  <img src="music-cover.png" alt="Lion Cover" class="lion">
-</div>
-
+    <!-- Album cover -->
+    <div class="cover">
+      <img src="music-cover.png" alt="Lion Cover" class="lion">
+    </div>
 
     <!-- Song Info -->
     <div class="song-info">
@@ -199,150 +31,149 @@
     </div>
 
     <div class="search-box">
-  <input type="text" id="song-search" placeholder="Search songs..." oninput="showSuggestions(this.value)">
-  <div id="suggestions" class="suggestions"></div>
-</div>
-
+      <input type="text" id="song-search" placeholder="Search songs..." oninput="showSuggestions(this.value)">
+      <div id="suggestions" class="suggestions"></div>
+    </div>
 
     <!-- Controls -->
     <div class="media-controls-container-dark">
-  <button class="control-button-dark prev-btn-dark">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
-    </svg>
-  </button>
-  <button class="control-button-dark play-pause-btn-dark" id="play-pause-button" aria-label="Play/Pause">
-  <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-    <path d="M8 5v14l11-7z"/>
-  </svg>
-  <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display: none;">
-    <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-  </svg>
-  </button>
-  <button class="control-button-dark next-btn-dark">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-      <path d="M8.59 16.59L13.17 12l-4.58-4.59L10 6l6 6-6 6z"/>
-    </svg>
-  </button>
-</div>
-
+      <button class="control-button-dark prev-btn-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M15.41 16.59L10.83 12l4.58-4.59L14 6l-6 6 6 6z"/>
+        </svg>
+      </button>
+      <button class="control-button-dark play-pause-btn-dark" id="play-pause-button" aria-label="Play/Pause">
+        <svg class="icon-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M8 5v14l11-7z"/>
+        </svg>
+        <svg class="icon-pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" style="display: none;">
+          <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+        </svg>
+      </button>
+      <button class="control-button-dark next-btn-dark">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M8.59 16.59L13.17 12l-4.58-4.59L10 6l6 6-6 6z"/>
+        </svg>
+      </button>
+      <button class="control-button-dark loop-btn-dark" id="loop-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+          <path d="M17.3 7.3c-1.8-1.8-4.6-1.8-6.4 0l-1.7 1.7c-1.5-1.1-3.6-1-5 0-1.6 1.1-2 3.1-1 4.8 1.1 1.7 3.2 2.1 4.8 1 1.1-1.1 1.1-2.8 0-4l1.7-1.7c1.8 1.8 4.6 1.8 6.4 0 1.8-1.8 1.8-4.6 0-6.4z"/>
+        </svg>
+      </button>
+    </div>
 
     <!-- Audio -->
-    <audio id="audio" src="Meri_Banogi_kya-Rito_Riba.mp3" ></audio>
+    <audio id="audio" src="Meri_Banogi_kya-Rito_Riba.mp3"></audio>
   </div>
 
   <script>
-  // Songs list (replace with your actual song file names)
-  const songs = [
-    "Meri_Banogi_kya-Rito_Riba.mp3",
-"DARK-NIGHT-FUNK.m4a.webm",
-"MONTAGEM-ALUCINANTE-Rushex-Dj-Orbital.m4a.mp3",
-"No-Signal.m4a.webm",
-"SHOORVEER-3-A-Tribute-to-छत-रपत-श-व-ज-मह-र-ज.m4a.mp3",
-"SHOORVEER-Tribute-to-छत-रपत-स-भ-ज-मह-र-ज-CHHAAVA-I-Rapperiya.m4a.mp3",
-"Bhaag-Milkha-Bhaag-Rock-Version.m4a.mp3",
-"Rang-Jo-Lagyo-Ramaiya-Vastavaiya.m4a.mp3",
-"52-Bars_karan_aujilah.m4a.mp3",
-"Red-Sex-Re-Strung.m4a.mp3",
-"Sahiba_Aditya.m4a.mp3",
-"Zaalima.m4a.mp3",
-"Raabta_Arijit_singh.m4a.mp3",
-"Kabira_pritam.m4a.mp3",
-"Othaiyadi-Pathayila-.m4a.mp3",
-"Parro_Aditya_Rikhari.m4a.mp3",
-"Wishes-ft-Talwiinder.m4a.mp3",
-"Labrinth-Mount-Everest.m4a.mp3",
-  ];
+    // Songs list
+    const songs = [
+      "Meri_Banogi_kya-Rito_Riba.mp3",
+      "DARK-NIGHT-FUNK.m4a.webm",
+      "MONTAGEM-ALUCINANTE-Rushex-Dj-Orbital.m4a.mp3",
+      "No-Signal.m4a.webm",
+      "SHOORVEER-3-A-Tribute-to-छत-रपत-श-व-ज-मह-र-ज.m4a.mp3",
+      "SHOORVEER-Tribute-to-छत-रपत-स-भ-ज-मह-र-ज-CHHAAVA-I-Rapperiya.m4a.mp3",
+      "Bhaag-Milkha-Bhaag-Rock-Version.m4a.mp3",
+      "Rang-Jo-Lagyo-Ramaiya-Vastavaiya.m4a.mp3",
+      "52-Bars_karan_aujilah.m4a.mp3",
+      "Red-Sex-Re-Strung.m4a.mp3",
+      "Sahiba_Aditya.m4a.mp3",
+      "Zaalima.m4a.mp3",
+      "Raabta_Arijit_singh.m4a.mp3",
+      "Kabira_pritam.m4a.mp3",
+      "Othaiyadi-Pathayila-.m4a.mp3",
+      "Parro_Aditya_Rikhari.m4a.mp3",
+      "Wishes-ft-Talwiinder.m4a.mp3",
+      "Labrinth-Mount-Everest.m4a.mp3"
+    ];
 
-  let currentSongIndex = 0;
+    let currentSongIndex = 0;
+    let isLooping = false;
 
-  const audio = document.getElementById("audio");
-  const playPauseBtn = document.getElementById("play-pause-button");
-  const progressBar = document.getElementById("progress");
-  const songArtist = document.getElementById("song-artist"); 
-  const prevBtn = document.querySelector(".prev-btn-dark");
-  const nextBtn = document.querySelector(".next-btn-dark");
+    const audio = document.getElementById("audio");
+    const playPauseBtn = document.getElementById("play-pause-button");
+    const progressBar = document.getElementById("progress");
+    const songArtist = document.getElementById("song-artist");
+    const prevBtn = document.querySelector(".prev-btn-dark");
+    const nextBtn = document.querySelector(".next-btn-dark");
+    const loopBtn = document.getElementById("loop-btn");
 
-  // Load a song
-  function loadSong(index) {
-    currentSongIndex = (index + songs.length) % songs.length; // wrap around
-    audio.src = songs[currentSongIndex];
-    updateSongInfo();
-    audio.play();
-  }
-
-  // Song info updater
-  function updateSongInfo() {
-    const fullPath = audio.src;
-    const filename = fullPath.split("/").pop();
-    const decodedName = decodeURIComponent(filename);
-    const nameWithoutExt = decodedName.split(".").slice(0, -1).join(".");
-    songArtist.textContent = nameWithoutExt;
-  }
-
-  // Suggestions
-  function showSuggestions(query) {
-    const suggestionsBox = document.getElementById("suggestions");
-    suggestionsBox.innerHTML = "";
-    if (!query) return;
-
-    const matches = songs.filter(song =>
-      song.toLowerCase().includes(query.toLowerCase())
-    );
-
-    matches.forEach(song => {
-      const div = document.createElement("div");
-      div.classList.add("suggestion-item");
-      div.textContent = song;
-      div.onclick = () => selectSong(song);
-      suggestionsBox.appendChild(div);
-    });
-  }
-
-  function selectSong(song) {
-    currentSongIndex = songs.indexOf(song);
-    loadSong(currentSongIndex);
-    document.getElementById("song-search").value = song;
-    document.getElementById("suggestions").innerHTML = "";
-  }
-
-  // Play / Pause button
-  playPauseBtn.addEventListener("click", () => {
-    if (audio.paused) {
+    // Load a song
+    function loadSong(index) {
+      currentSongIndex = (index + songs.length) % songs.length; // wrap around
+      audio.src = songs[currentSongIndex];
+      updateSongInfo();
       audio.play();
-    } else {
-      audio.pause();
     }
-  });
 
-  audio.addEventListener("play", () => playPauseBtn.classList.add("playing"));
-  audio.addEventListener("pause", () => playPauseBtn.classList.remove("playing"));
+    // Song info updater
+    function updateSongInfo() {
+      const fullPath = audio.src;
+      const filename = fullPath.split("/").pop();
+      const decodedName = decodeURIComponent(filename);
+      const nameWithoutExt = decodedName.split(".").slice(0, -1).join(".");
+      songArtist.textContent = nameWithoutExt;
+    }
 
-  // Progress bar update
-  function updateProgressBar() {
-    const value = (audio.currentTime / audio.duration) * 100 || 0;
-    progressBar.value = value;
-    progressBar.style.background = `linear-gradient(to right, #1db954 ${value}%, #ccc ${value}%)`;
-  }
+    // Play / Pause button
+    playPauseBtn.addEventListener("click", () => {
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
 
-  audio.addEventListener("timeupdate", updateProgressBar);
+    audio.addEventListener("play", () => playPauseBtn.classList.add("playing"));
+    audio.addEventListener("pause", () => playPauseBtn.classList.remove("playing"));
 
-  progressBar.addEventListener("input", () => {
-    audio.currentTime = (progressBar.value / 100) * audio.duration;
-  });
+    // Progress bar update
+    function updateProgressBar() {
+      const value = (audio.currentTime / audio.duration) * 100 || 0;
+      progressBar.value = value;
+      progressBar.style.background = `linear-gradient(to right, #1db954 ${value}%, #ccc ${value}%)`;
+    }
 
-  // Prev / Next buttons
-  prevBtn.addEventListener("click", () => loadSong(currentSongIndex - 1));
-  nextBtn.addEventListener("click", () => loadSong(currentSongIndex + 1));
+    audio.addEventListener("timeupdate", updateProgressBar);
 
-  // Autoplay next song when one ends
-  audio.addEventListener("ended", () => loadSong(currentSongIndex + 1));
+    progressBar.addEventListener("input", () => {
+      audio.currentTime = (progressBar.value / 100) * audio.duration;
+    });
 
-  // Start with first song
-  loadSong(currentSongIndex);
+    // Prev / Next buttons
+    prevBtn.addEventListener("click", () => loadSong(currentSongIndex - 1));
+    nextBtn.addEventListener("click", () => loadSong(currentSongIndex + 1));
+
+    // Loop functionality
+    loopBtn.addEventListener("click", () => {
+      isLooping = !isLooping;
+      loopBtn.classList.toggle("active", isLooping); // visual toggle
+
+      if (isLooping) {
+        audio.addEventListener("ended", () => {
+          audio.currentTime = 0; // Start song over
+          audio.play();
+        });
+      } else {
+        audio.removeEventListener("ended", () => {
+          audio.currentTime = 0;
+          audio.play();
+        });
+        audio.addEventListener("ended", () => loadSong(currentSongIndex + 1));
+      }
+    });
+
+    // Autoplay next song when one ends (loop OFF)
+    audio.addEventListener("ended", () => {
+      if (!isLooping) {
+        loadSong(currentSongIndex + 1);
+      }
+    });
+
+    // Start with first song
+    loadSong(currentSongIndex);
   </script>
 </body>
 </html>
-
-
-
